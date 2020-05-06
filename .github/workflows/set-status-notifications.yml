@@ -14,6 +14,6 @@ jobs:
     steps:
       - uses: mikeal/npx@master
         env:
-          SET_STATUS_TOKEN: ${{ secrets.STATUS_TOKEN}}
+          SET_STATUS_TOKEN: ${{ secrets.SET_STATUS_TOKEN}}
         with:
           args: "set-gh-status -m '{#} pending notifications' -e :heart:"
