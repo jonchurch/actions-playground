@@ -1,8 +1,11 @@
 name: Set GH Status
 
 on:
+  push:
+    branches:
+      - master
   schedule:
-    - cron: '*/1 * * * *'
+    - cron: '*/30 * * * *'
 
 jobs:
   update-status:
