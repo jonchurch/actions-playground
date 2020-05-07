@@ -11,6 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: "set-gh-status -m '{#} pending notifications' -e :heart:"
+      - run: "npx set-gh-status -m '{#} pending notifications' -e :heart:"
         env:
           SET_STATUS_TOKEN: ${{ secrets.SET_STATUS_TOKEN}}
