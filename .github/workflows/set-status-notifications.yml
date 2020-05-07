@@ -1,6 +1,8 @@
 name: Set GH Status
 
 on:
+  push:
+    branch: master
   schedule:
     - cron: '0 * * * *'
 
@@ -9,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: mikeal/npx@master
+        run: "set-gh-status -m '{#} pending notifications' -e :heart:"
         env:
           SET_STATUS_TOKEN: ${{ secrets.SET_STATUS_TOKEN}}
-        with:
-          args: "set-gh-status -m '{#} pending notifications' -e :heart:"
