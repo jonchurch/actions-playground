@@ -16,9 +16,9 @@ labels: bug
 
 - [ ] I would like to work on a fix!
 
-## Current Behavior
+## What I'm Seeing is...
 
-## Expected Behavior
+## I Expected...
 
 ## Steps to Reproduce
 
