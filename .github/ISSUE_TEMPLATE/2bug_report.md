@@ -27,7 +27,7 @@ The process for bug fixing is:
 
 <!-- Describe how to reproduce the issue. Please provide a minimal standalone reproduction,
 ideally a link to a repository or demo if possible, where the bug can be observed.
-Reproduction is essential to confirming a fixing a bug, and working with us to reproduce it helps tremendously! -->
+Reproduction is essential to confirming and fixing a bug, and working with us to reproduce it helps tremendously! -->
 
 ### Additional context
 
