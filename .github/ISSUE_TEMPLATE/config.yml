@@ -1,0 +1,4 @@
+contact_links:
+  - name: Security Report
+    url: https://github.com/expressjs/express/blob/master/Security.md
+    about: Security reports should be sent outside of Github, see Security.md for details
