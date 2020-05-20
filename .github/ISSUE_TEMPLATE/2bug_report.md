@@ -4,10 +4,7 @@ about: Have you found a bug?
 labels: bug
 ---
 
-<!--
-Please provide the following information so we can confirm and fix the issue as quickly as possible.
-
-The process for bug fixing is:
+<!-- The process for bug fixing is:
 
 - We will first assess if the behavior is different from what should occur
 - Confirm the bug is reproducible
