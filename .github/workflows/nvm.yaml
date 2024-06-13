@@ -3,10 +3,10 @@ name: Check NVM Availability
 on:
   push:
     branches:
-      - main  # Adjust this as necessary for your repository
+      - master # Adjust this as necessary for your repository
   pull_request:
     branches:
-      - main  # Adjust this as necessary for your repository
+      - master # Adjust this as necessary for your repository
 
 
 jobs:
