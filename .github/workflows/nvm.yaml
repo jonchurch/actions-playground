@@ -3,37 +3,147 @@ name: Check NVM Availability
 on:
   push:
     branches:
-      - master # Adjust this as necessary for your repository
+      - master
+      - develop
+      - '4.x'
+      - '5.x'
+    paths-ignore:
+      - '*.md'
   pull_request:
-    branches:
-      - master # Adjust this as necessary for your repository
+    paths-ignore:
+      - '*.md'
 
+# Cancel in progress workflows
+# in the scenario where we already had a run going for that PR/branch/tag but then triggered a new run
+concurrency:
+  group: "${{ github.workflow }} ✨ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}"
+  cancel-in-progress: true
 
 jobs:
-  check-nvm-ubuntu:
+  test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        name:
+        - Node.js 0.10
+        - Node.js 0.12
+        - io.js 1.x
+        - io.js 2.x
+        - io.js 3.x
+        - Node.js 4.x
+        - Node.js 5.x
+        - Node.js 6.x
+        - Node.js 7.x
+        - Node.js 8.x
+        - Node.js 9.x
+        - Node.js 10.x
+        - Node.js 11.x
+        - Node.js 12.x
+        - Node.js 13.x
+        - Node.js 14.x
+        - Node.js 15.x
+        - Node.js 16.x
+        - Node.js 17.x
+        - Node.js 18.x
+        - Node.js 19.x
+        - Node.js 20.x
+        - Node.js 21.x
+        - Node.js 22.x
+
+        include:
+        - name: Node.js 0.10
+          node-version: "0.10"
+          npm-i: mocha@3.5.3 nyc@10.3.2 supertest@2.0.0
+
+        - name: Node.js 0.12
+          node-version: "0.12"
+          npm-i: mocha@3.5.3 nyc@10.3.2 supertest@2.0.0
+
+        - name: io.js 1.x
+          node-version: "1.8"
+          npm-i: mocha@3.5.3 nyc@10.3.2 supertest@2.0.0
+
+        - name: io.js 2.x
+          node-version: "2.5"
+          npm-i: mocha@3.5.3 nyc@10.3.2 supertest@2.0.0
+
+        - name: io.js 3.x
+          node-version: "3.3"
+          npm-i: mocha@3.5.3 nyc@10.3.2 supertest@2.0.0
+
+        - name: Node.js 4.x
+          node-version: "4.9"
+          npm-i: mocha@5.2.0 nyc@11.9.0 supertest@3.4.2
+
+        - name: Node.js 5.x
+          node-version: "5.12"
+          npm-i: mocha@5.2.0 nyc@11.9.0 supertest@3.4.2
+
+        - name: Node.js 6.x
+          node-version: "6.17"
+          npm-i: mocha@6.2.2 nyc@14.1.1 supertest@3.4.2
+
+        - name: Node.js 7.x
+          node-version: "7.10"
+          npm-i: mocha@6.2.2 nyc@14.1.1 supertest@6.1.6
+
+        - name: Node.js 8.x
+          node-version: "8.17"
+          npm-i: mocha@7.2.0 nyc@14.1.1
+
+        - name: Node.js 9.x
+          node-version: "9.11"
+          npm-i: mocha@7.2.0 nyc@14.1.1
+
+        - name: Node.js 10.x
+          node-version: "10.24"
+          npm-i: mocha@8.4.0
+
+        - name: Node.js 11.x
+          node-version: "11.15"
+          npm-i: mocha@8.4.0
+
+        - name: Node.js 12.x
+          node-version: "12.22"
+          npm-i: mocha@9.2.2
+
+        - name: Node.js 13.x
+          node-version: "13.14"
+          npm-i: mocha@9.2.2
+
+        - name: Node.js 14.x
+          node-version: "14.20"
+
+        - name: Node.js 15.x
+          node-version: "15.14"
+
+        - name: Node.js 16.x
+          node-version: "16.20"
+
+        - name: Node.js 17.x
+          node-version: "17.9"
+
+        - name: Node.js 18.x
+          node-version: "18.19"
+
+        - name: Node.js 19.x
+          node-version: "19.9"
+
+        - name: Node.js 20.x
+          node-version: "20.11"
+
+        - name: Node.js 21.x
+          node-version: "21.7"
+
+        - name: Node.js 22.x
+          node-version: "22.2"
+
     steps:
-    - name: Check nvm on Ubuntu
+    - uses: actions/checkout@v4
+
+    - name: Install Node.js ${{ matrix.node-version }}
+      shell: bash -eo pipefail -l {0}
       run: |
-        echo "Checking nvm on Ubuntu..."
-        command -v nvm && nvm --version || echo "nvm not available"
-        
-    - name: Exercise nvm 
-      run: nvm install --default 22
-
-
-  check-nvm-windows:
-    runs-on: windows-latest
-    steps:
-    - name: Check nvm on Windows
-      run: |
-        echo "Checking nvm on Windows..."
-        if (Get-Command nvm -ErrorAction SilentlyContinue) {
-          nvm --version
-        } else {
-          echo "nvm not available"
-        }
-      shell: pwsh
-    - name: Exercise nvm 
-      run: nvm install --default 22
-
+        nvm install --default ${{ matrix.node-version }}
+        dirname "$(nvm which ${{ matrix.node-version }})" >> "$GITHUB_PATH"
