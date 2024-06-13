@@ -3,23 +3,43 @@ name: Check NVM Availability
 on:
   push:
     branches:
-      - main  # Adjust this as necessary for your repository
+      - master # Adjust this as necessary for your repository
   pull_request:
     branches:
-      - main  # Adjust this as necessary for your repository
+      - master # Adjust this as necessary for your repository
+
 
 jobs:
   check-nvm-ubuntu:
     runs-on: ubuntu-latest
     steps:
+    # - uses: actions/checkout@v4
+
+    - name: Install Node.js 22
+      shell: bash -eo pipefail -l {0}
+      run: |
+        nvm install --default 22
+        dirname "$(nvm which 22)" >> "$GITHUB_PATH"
     - name: Check nvm on Ubuntu
       run: |
         echo "Checking nvm on Ubuntu..."
         command -v nvm && nvm --version || echo "nvm not available"
+        
+    - name: Exercise nvm 
+      shell: bash -eo pipefail -l {0}
+      run: nvm install --default 22
+
 
   check-nvm-windows:
     runs-on: windows-latest
     steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Node.js ${{ matrix.node-version }}
+      shell: bash -eo pipefail -l {0}
+      run: |
+        nvm-windows install --default ${{ matrix.node-version }}
+        dirname "$(nvm-windows which ${{ matrix.node-version }})" >> "$GITHUB_PATH"
     - name: Check nvm on Windows
       run: |
         echo "Checking nvm on Windows..."
@@ -29,4 +49,6 @@ jobs:
           echo "nvm not available"
         }
       shell: pwsh
+    - name: Exercise nvm 
+      run: nvm install --default 22
 
