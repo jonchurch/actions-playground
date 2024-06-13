@@ -26,6 +26,7 @@ jobs:
         command -v nvm && nvm --version || echo "nvm not available"
         
     - name: Exercise nvm 
+      shell: bash -eo pipefail -l {0}
       run: nvm install --default 22
 
 
