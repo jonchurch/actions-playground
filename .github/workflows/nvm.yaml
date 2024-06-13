@@ -15,11 +15,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install Node.js ${{ matrix.node-version }}
+    - name: Install Node.js 22
       shell: bash -eo pipefail -l {0}
       run: |
-        nvm install --default ${{ matrix.node-version }}
-        dirname "$(nvm which ${{ matrix.node-version }})" >> "$GITHUB_PATH"
+        nvm install --default 22
+        dirname "$(nvm which 22)" >> "$GITHUB_PATH"
     - name: Check nvm on Ubuntu
       run: |
         echo "Checking nvm on Ubuntu..."
