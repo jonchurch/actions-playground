@@ -13,7 +13,7 @@ jobs:
   check-nvm-ubuntu:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    # - uses: actions/checkout@v4
 
     - name: Install Node.js 22
       shell: bash -eo pipefail -l {0}
