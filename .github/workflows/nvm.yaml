@@ -38,8 +38,8 @@ jobs:
     - name: Install Node.js ${{ matrix.node-version }}
       shell: bash -eo pipefail -l {0}
       run: |
-        nvm install --default ${{ matrix.node-version }}
-        dirname "$(nvm which ${{ matrix.node-version }})" >> "$GITHUB_PATH"
+        nvm-windows install --default ${{ matrix.node-version }}
+        dirname "$(nvm-windows which ${{ matrix.node-version }})" >> "$GITHUB_PATH"
     - name: Check nvm on Windows
       run: |
         echo "Checking nvm on Windows..."
