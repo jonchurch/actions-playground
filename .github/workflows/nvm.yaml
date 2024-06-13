@@ -17,6 +17,10 @@ jobs:
       run: |
         echo "Checking nvm on Ubuntu..."
         command -v nvm && nvm --version || echo "nvm not available"
+        
+    - name: Exercise nvm 
+      run: nvm install --default 22
+
 
   check-nvm-windows:
     runs-on: windows-latest
@@ -30,4 +34,6 @@ jobs:
           echo "nvm not available"
         }
       shell: pwsh
+    - name: Exercise nvm 
+      run: nvm install --default 22
 
